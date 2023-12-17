@@ -1,0 +1,73 @@
+name: Test and Release
+
+on:
+  push:
+    branches:
+      - master
+    tags-ignore:
+      - '**'
+    paths-ignore:
+      - '**/*.md'
+      - LICENSE
+  pull_request:
+
+jobs:
+
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Sources
+      uses: actions/checkout@v4
+    - name: Setup V
+      uses: prantlf/setup-v-action@v2
+    - name: Test
+      run: make
+
+  macos:
+    runs-on: macos-latest
+    steps:
+    - name: Checkout Sources
+      uses: actions/checkout@v4
+    - name: Setup V
+      uses: prantlf/setup-v-action@v2
+    - name: Test
+      run: make
+
+  # windows:
+  #   runs-on: windows-latest
+  #   steps:
+  #   - name: Checkout Sources
+  #     uses: actions/checkout@v4
+  #   - name: Setup V
+  #     uses: prantlf/setup-v-action@v2
+  #     with:
+  #       install-dependencies: false
+  #   - name: Install Dependencies
+  #     run: |
+  #       md src\modules
+  #       md src\modules\prantlf
+  #       git clone --depth=1 --recursive --shallow-submodules https://github.com/prantlf/v-debug modules\prantlf\debug
+  #       git clone --depth=1 --recursive --shallow-submodules https://github.com/prantlf/v-jany modules\prantlf\jany
+  #       git clone --depth=1 --recursive --shallow-submodules https://github.com/prantlf/v-json modules\prantlf\json
+  #       git clone --depth=1 --recursive --shallow-submodules https://github.com/prantlf/v-osutil modules\prantlf\osutil
+  #       git clone --depth=1 --recursive --shallow-submodules https://github.com/prantlf/v-pcre modules\prantlf\pcre
+  #       git clone --depth=1 --recursive --shallow-submodules https://github.com/prantlf/v-strutil modules\prantlf\strutil
+  #   - name: Test
+  #     run: cmd /c make.bat
+
+  release:
+    if: ${{ github.ref_name == 'master' }}
+    needs:
+      - linux
+      - macos
+      # - windows
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout sources
+      uses: actions/checkout@v4
+    - name: Publish release
+      uses: prantlf/publish-release-action@v1
+      with:
+        no-archives: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
