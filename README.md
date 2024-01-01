@@ -6,7 +6,7 @@ Several functions for managing GitHub projects.
 
 ```v
 import prantlf.github { find_git, get_repo_path }
-import prantlf.json { find_git, get_repo_path }
+import prantlf.json { parse }
 
 // Get repository path, for example: 'prantlf/v-github'
 git_path := find_git()!
@@ -17,7 +17,7 @@ gh_token := get_gh_token()!
 
 // Get tag of the latest release
 output := get_latest_release(repo_path, gh_token)!
-release := json.parse(output, json.ParseOpts{})!.object()!
+release := parse(output)!.object()!
 tag := release['tag_name']!.string()!
 ```
 

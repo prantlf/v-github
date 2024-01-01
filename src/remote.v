@@ -3,7 +3,7 @@ module github
 import net.http { Request }
 import net.urllib { query_escape }
 import prantlf.jany { Any }
-import prantlf.json { StringifyOpts, stringify }
+import prantlf.json { stringify }
 
 pub fn get_release(repo string, token string, tag string) !string {
 	url := 'https://api.github.com/repos/${repo}/releases/tags/${tag}'
@@ -47,7 +47,7 @@ pub fn get_latest_release(repo string, token string) !string {
 
 pub fn create_release(repo string, token string, tag string, ver string, log string) !string {
 	url := 'https://api.github.com/repos/${repo}/releases'
-	body := stringify(Any(log), StringifyOpts{})
+	body := stringify(Any(log))
 	data := '{"tag_name":"${tag}","name":"${ver}","body":${body}}'
 	d.log('posting "%s" to "%s"', data, url)
 	mut req := Request{
