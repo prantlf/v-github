@@ -1,6 +1,12 @@
 module github
 
 import os { getwd }
+import prantlf.dotenv { load_env, load_user_env }
+
+fn testsuite_begin() {
+	load_env(true)!
+	load_user_env(true)!
+}
 
 fn test_find_git() {
 	path := find_git()!
@@ -16,4 +22,9 @@ fn test_get_repo_url() {
 fn test_get_repo_path() {
 	url := get_repo_path(find_git()!)!
 	assert url == 'prantlf/v-github'
+}
+
+fn test_get_gh_token() {
+	token := get_gh_token()!
+	assert token.len > 0
 }

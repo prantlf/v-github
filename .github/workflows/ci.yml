@@ -22,6 +22,8 @@ jobs:
       uses: prantlf/setup-v-action@v2
     - name: Test
       run: make
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   macos:
     runs-on: macos-latest
@@ -32,6 +34,8 @@ jobs:
       uses: prantlf/setup-v-action@v2
     - name: Test
       run: make
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # windows:
   #   runs-on: windows-latest

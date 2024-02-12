@@ -4,7 +4,7 @@ Module {
 	version: '0.1.1'
 	license: 'MIT'
 	dependencies: [
-		'prantlf.debug', 'prantlf.jany', 'prantlf.json', 'prantlf.osutil',
-		'prantlf.pcre'
+		'prantlf.debug', 'prantlf.dotenv', 'prantlf.jany', 'prantlf.json',
+		'prantlf.osutil', 'prantlf.pcre'
 	]
 }
