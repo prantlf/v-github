@@ -5,7 +5,7 @@ import prantlf.debug { new_debug }
 import prantlf.osutil { find_file }
 import prantlf.pcre { NoMatch, pcre_compile }
 
-const d = new_debug('vp')
+const d = new_debug('github')
 
 pub fn find_git() !string {
 	_, path := find_file('.git') or { return error('missing ".git" directory') }
