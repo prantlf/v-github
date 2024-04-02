@@ -31,13 +31,13 @@ pub fn get_repo_url(git_dir string) !string {
 	return error('url in ".git/config" not detected')
 }
 
-pub fn get_repo_path(git_dir string) !string {
-	mut url := get_repo_url(git_dir)!
+pub fn cut_repo_path(repo_url string) !string {
+	mut url := repo_url
 	if url.ends_with('.git') {
 		url = url[..url.len - 4]
 	}
 
-	re_name := pcre_compile(r'^.+github\.com[:/]([^/]+/(?:.+))', 0) or { panic(err) }
+	re_name := pcre_compile(r'^.+(?:github|gitlab)\.[^:/]+[:/]([^/]+/(?:.+))', 0) or { panic(err) }
 	m := re_name.exec(url, 0) or {
 		return if err is NoMatch {
 			error('unsupported git url "${url}"')
@@ -49,6 +49,11 @@ pub fn get_repo_path(git_dir string) !string {
 
 	github.d.log('git repo "%s" detected', path)
 	return path
+}
+
+pub fn get_repo_path(git_dir string) !string {
+	url := get_repo_url(git_dir)!
+	return cut_repo_path(url)!
 }
 
 pub fn get_gh_token() !string {

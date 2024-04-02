@@ -36,6 +36,7 @@ The following functions are exported:
 
     find_git() !string
     get_repo_url(git_dir string) !string
+    cut_repo_path(repo_url string) !string
     get_repo_path(git_dir string) !string
     get_gh_token() !string
 
