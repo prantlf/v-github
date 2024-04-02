@@ -1,5 +1,12 @@
 # Changes
 
+## [0.2.0](https://github.com/prantlf/v-github/compare/v0.1.2...v0.2.0) (2024-04-02)
+
+### Features
+
+* Add function cut_repo_path ([dfd8f9f](https://github.com/prantlf/v-github/commit/dfd8f9f6be5ff71d29ec71cd0435c757536324b0))
+* Add functions is_github and is_gitlab ([04a23df](https://github.com/prantlf/v-github/commit/04a23df3df5e840419cdc52c70b80424da8edd24))
+
 ## [0.1.2](https://github.com/prantlf/v-github/compare/v0.1.1...v0.1.2) (2024-02-12)
 
 ### Bug Fixes
