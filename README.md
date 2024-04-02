@@ -38,6 +38,8 @@ The following functions are exported:
     get_repo_url(git_dir string) !string
     cut_repo_path(repo_url string) !string
     get_repo_path(git_dir string) !string
+    is_github(repo_url string) bool
+    is_gitlab(repo_url string) bool
     get_gh_token() !string
 
     get_release(repo string, token string, tag string) !string

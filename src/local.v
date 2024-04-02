@@ -56,6 +56,14 @@ pub fn get_repo_path(git_dir string) !string {
 	return cut_repo_path(url)!
 }
 
+pub fn is_github(repo_url string) bool {
+	return repo_url.contains('github.')
+}
+
+pub fn is_gitlab(repo_url string) bool {
+	return repo_url.contains('gitlab.')
+}
+
 pub fn get_gh_token() !string {
 	return getenv_opt('GITHUB_TOKEN') or {
 		getenv_opt('GH_TOKEN') or { return error('neither GITHUB_TOKEN nor GH_TOKEN found') }

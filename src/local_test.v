@@ -24,6 +24,18 @@ fn test_get_repo_path() {
 	assert url == 'prantlf/v-github'
 }
 
+fn test_is_github() {
+	url := get_repo_path(find_git()!)!
+	assert is_github('github.com')
+	assert !is_github('gitlab.com')
+}
+
+fn test_is_gitlab() {
+	url := get_repo_path(find_git()!)!
+	assert is_gitlab('gitlab.com')
+	assert !is_gitlab('github.com')
+}
+
 fn test_get_gh_token() {
 	token := get_gh_token()!
 	assert token.len > 0
