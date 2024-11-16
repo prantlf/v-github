@@ -14,16 +14,16 @@ pub fn find_git() !string {
 
 pub fn get_repo_url(git_dir string) !string {
 	file := join_path_single(git_dir, 'config')
-	dfile := github.d.rwd(file)
-	github.d.log('reading file "%s"', dfile)
+	dfile := d.rwd(file)
+	d.log('reading file "%s"', dfile)
 	lines := read_lines(file)!
 
 	mut re_url := pcre_compile(r'\s*url\s*=\s*(.+)$', 0) or { panic(err) }
 	for line in lines {
-		github.d.log('looking for url in "%s"', line)
+		d.log('looking for url in "%s"', line)
 		if m := re_url.exec(line, 0) {
 			url := m.group_text(line, 1) or { panic(err) }
-			github.d.log('url "%s" found', url)
+			d.log('url "%s" found', url)
 			return url
 		}
 	}
@@ -47,7 +47,7 @@ pub fn cut_repo_path(repo_url string) !string {
 	}
 	path := m.group_text(url, 1) or { panic(err) }
 
-	github.d.log('git repo "%s" detected', path)
+	d.log('git repo "%s" detected', path)
 	return path
 }
 

@@ -10,7 +10,7 @@ pub fn get_release(repo string, token string, tag string) !string {
 	d.log('getting "%s"', url)
 	mut req := Request{
 		method: .get
-		url: url
+		url:    url
 	}
 	req.add_header(.accept, 'application/vnd.github+json')
 	req.add_header(.authorization, 'Bearer ${token}')
@@ -30,7 +30,7 @@ pub fn get_latest_release(repo string, token string) !string {
 	d.log('getting "%s"', url)
 	mut req := Request{
 		method: .get
-		url: url
+		url:    url
 	}
 	req.add_header(.accept, 'application/vnd.github+json')
 	req.add_header(.authorization, 'Bearer ${token}')
@@ -52,8 +52,8 @@ pub fn create_release(repo string, token string, tag string, ver string, log str
 	d.log('posting "%s" to "%s"', data, url)
 	mut req := Request{
 		method: .post
-		url: url
-		data: data
+		url:    url
+		data:   data
 	}
 	req.add_header(.accept, 'application/vnd.github+json')
 	req.add_header(.authorization, 'Bearer ${token}')
@@ -71,7 +71,7 @@ pub fn download_asset(url string, token string) !string {
 	d.log('getting "%s"', url)
 	mut req := Request{
 		method: .get
-		url: url
+		url:    url
 	}
 	req.add_header(.authorization, 'Bearer ${token}')
 	req.add_custom_header('X-GitHub-Api-Version', '2022-11-28')!
@@ -88,8 +88,8 @@ pub fn upload_asset(repo string, token string, id int, name string, data string,
 	d.log('posting "%s" to "%s"', name, url)
 	mut req := Request{
 		method: .post
-		url: url
-		data: data
+		url:    url
+		data:   data
 	}
 	req.add_header(.accept, 'application/vnd.github+json')
 	req.add_header(.authorization, 'Bearer ${token}')
