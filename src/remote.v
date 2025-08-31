@@ -3,7 +3,7 @@ module github
 import net.http { Request }
 import net.urllib { query_escape }
 import prantlf.jany { Any }
-import prantlf.json { stringify }
+import prantlf.json { parse, stringify }
 
 pub fn get_release(repo string, token string, tag string) !string {
 	url := 'https://api.github.com/repos/${repo}/releases/tags/${tag}'
@@ -101,7 +101,27 @@ pub fn upload_asset(repo string, token string, id int, name string, data string,
 	if res.status_code == 201 {
 		return res.body
 	}
+	if res.status_code == 422 {
+		asset := get_asset_by_name(repo, token, id, name)!
+		if asset.len > 0 {
+			return asset
+		}
+	}
 	return error('adding "${name}" to release ${id} in ${repo} failed: ${res.status_code} (${res.status_msg})')
+}
+
+fn get_asset_by_name(repo string, token string, id int, name string) !string {
+	assets := list_assets(repo, token, id)!
+	asset_objects := parse(assets)!.array()!
+	for asset_object in asset_objects {
+		asset := asset_object.object()!
+		asset_name := asset['name']!.string()!
+		if name == asset_name {
+			asset_string := stringify(asset_object)
+			return asset_string
+		}
+	}
+	return ''
 }
 
 pub fn list_assets(repo string, token string, id int) !string {
