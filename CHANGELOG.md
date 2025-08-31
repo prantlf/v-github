@@ -1,5 +1,13 @@
 # Changes
 
+## [0.3.0](https://github.com/prantlf/v-github/compare/v0.2.1...v0.3.0) (2025-08-31)
+
+### Features
+
+* Add function list_assets ([b17e484](https://github.com/prantlf/v-github/commit/b17e48446d88fcd4c7830f66ddca2b5120caafe4))
+* Consider asset uploaded if it exists, although the request failed with 422 ([7169cda](https://github.com/prantlf/v-github/commit/7169cdae0b7e021d5ac41a0b56c83058e6f72758))
+* Add function delete_asset ([b211967](https://github.com/prantlf/v-github/commit/b211967de43a7aeb9ceb14891ecb80287f5846ce))
+
 ## [0.2.1](https://github.com/prantlf/v-github/compare/v0.2.0...v0.2.1) (2024-11-16)
 
 ### Bug Fixes
