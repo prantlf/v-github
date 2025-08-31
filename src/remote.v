@@ -103,3 +103,21 @@ pub fn upload_asset(repo string, token string, id int, name string, data string,
 	}
 	return error('adding "${name}" to release ${id} in ${repo} failed: ${res.status_code} (${res.status_msg})')
 }
+
+pub fn list_assets(repo string, token string, id int) !string {
+	url := 'https://api.github.com/repos/${repo}/releases/${id}/assets'
+	d.log('getting "%s"', url)
+	mut req := Request{
+		method: .get
+		url:    url
+	}
+	req.add_header(.accept, 'application/vnd.github+json')
+	req.add_header(.authorization, 'Bearer ${token}')
+	req.add_custom_header('X-GitHub-Api-Version', '2022-11-28')!
+	res := req.do()!
+	d.log('received "%s"', res.body)
+	if res.status_code == 200 {
+		return res.body
+	}
+	return error('listing assets from ${repo}, release ${id} failed: ${res.status_code} (${res.status_msg})')
+}
