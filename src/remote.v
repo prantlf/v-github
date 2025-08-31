@@ -124,6 +124,24 @@ fn get_asset_by_name(repo string, token string, id int, name string) !string {
 	return ''
 }
 
+pub fn delete_asset(repo string, token string, id int) ! {
+	url := 'https://api.github.com/repos/${repo}/releases/assets/${id}'
+	d.log('deleting asset "%d" from "%s"', id, repo)
+	mut req := Request{
+		method: .delete
+		url:    url
+	}
+	req.add_header(.accept, 'application/vnd.github+json')
+	req.add_header(.authorization, 'Bearer ${token}')
+	req.add_custom_header('X-GitHub-Api-Version', '2022-11-28')!
+	res := req.do()!
+	d.log('received "%s"', res.body)
+	if res.status_code == 204 {
+		return
+	}
+	return error('deleting asset ${id} from ${repo} failed: ${res.status_code} (${res.status_msg})')
+}
+
 pub fn list_assets(repo string, token string, id int) !string {
 	url := 'https://api.github.com/repos/${repo}/releases/${id}/assets'
 	d.log('getting "%s"', url)
