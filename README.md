@@ -45,6 +45,8 @@ The following functions are exported:
     get_release(repo string, token string, tag string) !string
     get_latest_release(repo string, token string) !string
     create_release(repo string, token string, tag string, ver string, log string) !string
+    list_assets(repo string, token string, id int) !string
+    delete_asset(repo string, token string, id int) !
     download_asset(url string, token string) !string
     upload_asset(repo string, token string, id int, name string, data string, typ string) !string
 
