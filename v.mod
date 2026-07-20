@@ -1,7 +1,7 @@
 Module {
 	name: 'github'
 	description: 'Several functions for managing GitHub projects.'
-	version: '0.3.0'
+	version: '0.4.0'
 	license: 'MIT'
 	dependencies: [
 		'prantlf.debug', 'prantlf.dotenv', 'prantlf.jany', 'prantlf.json',
