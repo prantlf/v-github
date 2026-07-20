@@ -39,10 +39,11 @@ pub fn cut_repo_path(repo_url string) !string {
 
 	re_name := pcre_compile(r'^.+(?:github|gitlab)\.[^:/]+[:/]([^/]+/(?:.+))', 0) or { panic(err) }
 	m := re_name.exec(url, 0) or {
-		return if err is NoMatch {
-			error('unsupported git url "${url}"')
+		// workaround for a bug in V - returning an if expression doesn't work here
+		if err is NoMatch {
+			return error('unsupported git url "${url}"')
 		} else {
-			err
+			return err
 		}
 	}
 	path := m.group_text(url, 1) or { panic(err) }
